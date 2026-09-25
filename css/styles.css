@@ -78,7 +78,6 @@ button { font-family: inherit; }
   align-items: center;
   justify-content: space-between;
   gap: 32px;
-  width: 100%;
 }
 .brand { width: 228px; flex: 0 0 auto; }
 .brand img { width: 100%; height: auto; }
