@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clear Rock Legal · Mockup A</title>
+  <meta name="description" content="Clear Rock gets case management systems working with your teams early, so you can see, use and evolve them together." />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    /* A: the copy's questions carry the page. Each question gets its own band; each answer is set as a ruled ledger. */
+
+    .hero { padding: 88px 0 var(--section); }
+    .hero h1 { max-width: 11.5em; font-size: clamp(52px, 7.4vw, 104px); letter-spacing: -0.035em; line-height: 0.98; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: 72px;
+      margin-top: 64px;
+      align-items: start;
+    }
+    .hero-copy { font-size: 20px; line-height: 1.55; color: var(--ink-soft); max-width: 30em; }
+    .hero-copy strong { color: var(--crl-olive); }
+    .hero-copy .ask { color: var(--crl-olive); font-weight: 500; }
+    .hero-actions { margin-top: 32px; }
+    .proof-list { list-style: none; padding: 0; margin: 48px 0 0; border-top: 1px solid var(--line); }
+    .proof-list li {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 15px; font-weight: 600;
+    }
+    .proof-list li::before { content: ""; width: 10px; height: 10px; background: var(--crl-saffron); flex: none; }
+
+    /* The queue: manual lane stuck behind a gate, automated lane flowing */
+    .queue {
+      background: var(--crl-white);
+      border: 1px solid rgba(151, 139, 128, 0.45);
+      border-radius: 8px;
+      padding: 28px;
+      display: grid;
+      gap: 28px;
+    }
+    .lane-label {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .lane-label svg { width: 18px; height: 18px; }
+    .track {
+      position: relative;
+      height: 96px;
+      background: #EFE9DE;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .track::after {
+      content: "";
+      position: absolute; left: 16px; right: 16px; top: 50%;
+      border-top: 2px dashed rgba(41, 48, 38, 0.18);
+    }
+    .gate {
+      position: absolute; top: 0; bottom: 0; left: 72%;
+      width: 10px;
+      background: var(--crl-olive);
+      z-index: 2;
+    }
+    .gate::before {
+      content: "";
+      position: absolute; top: 50%; left: 10px;
+      width: 64px; height: 6px;
+      margin-top: -3px;
+      background: var(--crl-orange);
+      transform-origin: left center;
+      animation: barrier 9s var(--ease-out) infinite;
+    }
+    .gate::after { display: none; }
+    .qblock {
+      position: absolute; top: 50%;
+      width: 56px; height: 44px;
+      margin-top: -22px;
+      border-radius: 4px;
+      background: #CFC6BA;
+      z-index: 1;
+    }
+    .qblock:nth-child(2) { left: calc(72% - 70px); background: var(--crl-taupe); animation: nudge 9s var(--ease-out) infinite; }
+    .qblock:nth-child(3) { left: calc(72% - 136px); animation: nudge 9s var(--ease-out) 0.12s infinite; }
+    .qblock:nth-child(4) { left: calc(72% - 202px); animation: nudge 9s var(--ease-out) 0.24s infinite; }
+    .qblock:nth-child(5) { left: calc(72% - 268px); animation: nudge 9s var(--ease-out) 0.36s infinite; }
+    .qblock:nth-child(6) { left: calc(72% - 334px); animation: nudge 9s var(--ease-out) 0.48s infinite; }
+    .flowblock {
+      position: absolute; top: 50%; left: 0;
+      width: 56px; height: 44px; margin-top: -22px;
+      border-radius: 4px;
+      background: var(--crl-saffron);
+      animation: flow 3.2s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+    }
+    .flowblock.b2 { animation-delay: 1.6s; }
+    @keyframes flow {
+      from { left: -64px; }
+      to { left: 100%; }
+    }
+    @keyframes nudge {
+      0%, 70% { transform: translateX(0); }
+      76% { transform: translateX(8px); }
+      84%, 100% { transform: translateX(0); }
+    }
+    @keyframes barrier {
+      0%, 70% { transform: rotate(0deg); }
+      76% { transform: rotate(-12deg); }
+      84%, 100% { transform: rotate(0deg); }
+    }
+
+    /* See it */
+    .see { background: var(--paper); padding: var(--section) 0; border-top: 1px solid var(--line); }
+    .see-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 72px; align-items: center; }
+    .see .eyebrow { color: var(--ink-soft); margin-bottom: 20px; }
+    .see-copy { font-size: 18px; color: var(--ink-soft); margin-top: 28px; max-width: 30em; }
+
+    /* The question band */
+    .ask-band { background: var(--crl-olive); color: var(--crl-ivory); padding: 104px 0; }
+    .ask-band p {
+      margin: 0;
+      font-size: clamp(34px, 4.6vw, 64px);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      font-weight: 500;
+      max-width: 17em;
+      text-wrap: balance;
+    }
+    .ask-band .mark { box-shadow: inset 0 -0.14em 0 var(--crl-saffron); }
+
+    /* Approach as a ledger */
+    .approach { padding: var(--section) 0; }
+    .approach-head { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 72px; align-items: end; }
+    .approach .eyebrow { color: var(--ink-soft); margin-bottom: 20px; }
+    .approach-intro { color: var(--ink-soft); font-size: 18px; max-width: 32em; }
+    .ledger { margin-top: 80px; border-top: 2px solid var(--crl-olive); }
+    .ledger-row {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 4fr) minmax(0, 7fr);
+      gap: 40px;
+      padding: 36px 0;
+      border-bottom: 1px solid var(--line);
+      align-items: baseline;
+    }
+    .ledger-no { font-size: 56px; line-height: 1; font-weight: 500; color: var(--crl-saffron); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+    .ledger-row h3 { font-size: clamp(24px, 2.4vw, 32px); }
+    .ledger-row p { color: var(--ink-soft); max-width: 36em; }
+    .payoff { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 72px; margin-top: 96px; }
+    .payoff h3 { font-size: clamp(28px, 3vw, 40px); line-height: 1.12; font-weight: 500; letter-spacing: -0.025em; }
+    .payoff h3::before { content: ""; display: block; width: 56px; height: 4px; background: var(--crl-saffron); margin-bottom: 28px; }
+    .payoff-copy { color: var(--ink-soft); padding-top: 32px; }
+    .payoff-copy p:last-child { color: var(--crl-olive); font-weight: 600; }
+
+    /* Experience */
+    .experience { background: var(--crl-olive); color: var(--crl-ivory); padding: var(--section) 0; }
+    .experience .eyebrow { color: var(--crl-saffron); margin-bottom: 20px; }
+    .experience h2 { max-width: 17em; }
+    .exp-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 72px; margin-top: 56px; }
+    .exp-copy { color: var(--on-dark-soft); font-size: 18px; max-width: 34em; }
+    .exp-copy strong { color: var(--crl-ivory); font-weight: 600; }
+    .exp-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--on-dark-line); }
+    .exp-list li { display: flex; gap: 18px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--on-dark-line); font-weight: 600; font-size: 17px; }
+    .exp-list svg { width: 24px; height: 24px; flex: none; color: var(--crl-saffron); }
+
+    /* Close */
+    .cta { padding: 136px 0; }
+    .cta h2 { font-size: clamp(48px, 7vw, 96px); line-height: 1; letter-spacing: -0.035em; max-width: 10em; }
+    .cta-row { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--line); }
+    .cta-row p { font-size: 22px; line-height: 1.4; color: var(--ink-soft); }
+    .cta-row strong { display: block; color: var(--crl-olive); }
+
+    @media (max-width: 960px) {
+      .hero { padding-top: 48px; }
+      .hero-grid, .see-grid, .approach-head, .payoff, .exp-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-grid { margin-top: 36px; }
+      .hero-copy { font-size: 18px; }
+      .queue { padding: 20px; gap: 20px; }
+      .track { height: 76px; }
+      .qblock, .flowblock { width: 40px; height: 32px; margin-top: -16px; }
+      .qblock:nth-child(2) { left: calc(72% - 50px); }
+      .qblock:nth-child(3) { left: calc(72% - 96px); }
+      .qblock:nth-child(4) { left: calc(72% - 142px); }
+      .qblock:nth-child(5) { left: calc(72% - 188px); }
+      .qblock:nth-child(6) { display: none; }
+      .gate::before { width: 40px; }
+      .ask-band { padding: 72px 0; }
+      .ledger { margin-top: 48px; }
+      .ledger-row { grid-template-columns: 56px 1fr; gap: 8px 16px; padding: 28px 0; }
+      .ledger-no { font-size: 40px; grid-row: span 2; }
+      .payoff { margin-top: 64px; }
+      .payoff-copy { padding-top: 0; }
+      .cta { padding: 88px 0; }
+      .cta-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="Clear Rock Legal home"><img src="../assets/logo-saffron.svg" alt="Clear Rock Legal" /></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 5h14M2 9h14M2 13h14"/></svg>
+        <span class="sr">Menu</span>
+      </button>
+      <nav class="nav-right" id="primary-nav" aria-label="Primary">
+        <div class="nav-links">
+          <a href="#approach">Approach</a>
+          <a href="#experience">Experience</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <a class="button" href="#contact">See it working <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <h1>Why wait to find out if it works?</h1>
+        <div class="hero-grid">
+          <div>
+            <div class="hero-copy">
+              <p>Choosing a <strong>case management system (CMS)</strong> is tough. The firm will live with the decision for years, so you want to know you're making the right call.</p>
+              <p class="ask">What if you could see one of your own practice areas working before you decide?</p>
+            </div>
+            <div class="hero-actions">
+              <a class="button" href="#see">See it working <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
+            </div>
+            <ul class="proof-list">
+              <li>Real outcomes faster</li>
+              <li>Your people in control</li>
+              <li>Fewer surprises later</li>
+            </ul>
+          </div>
+          <div class="queue" role="img" aria-label="A queue held at a barrier in the manual lane, while blocks flow freely through the automated lane">
+            <div>
+              <div class="lane-label"><span>Manual</span>
+                <svg viewBox="0 0 18 18" fill="none" stroke="#C95E3F" stroke-width="1.8" aria-hidden="true"><path d="M4 4l10 10M14 4 4 14"/></svg>
+              </div>
+              <div class="track">
+                <div class="gate"></div>
+                <div class="qblock"></div>
+                <div class="qblock"></div>
+                <div class="qblock"></div>
+                <div class="qblock"></div>
+                <div class="qblock"></div>
+              </div>
+            </div>
+            <div>
+              <div class="lane-label"><span>Automated</span>
+                <svg viewBox="0 0 18 18" fill="none" stroke="#293026" stroke-width="1.8" aria-hidden="true"><path d="M2 9h13M10 4l5 5-5 5"/></svg>
+              </div>
+              <div class="track">
+                <div class="flowblock"></div>
+                <div class="flowblock b2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="see" id="see">
+      <div class="wrap see-grid">
+        <div>
+          <div class="cms" aria-label="Illustrative case management screen">
+            <div class="cms-top">Case Management <small>Illustrative</small></div>
+            <div class="cms-body">
+              <div class="cms-nav"><div>Home</div><div class="active">Matters</div><div>Tasks</div><div>Documents</div><div>Reports</div></div>
+              <div class="matter">
+                <div class="matter-head">
+                  <div><h3>Clinical Negligence</h3><div class="matter-sub">MAT-02487 · Harper v Northbank Trust</div></div>
+                  <span class="status">In progress</span>
+                </div>
+                <div class="meta">
+                  <div class="meta-card"><span>Client</span><strong>Amelia Harper</strong></div>
+                  <div class="meta-card"><span>Case handler</span><strong>Sarah Evans</strong></div>
+                  <div class="meta-card"><span>Stage</span><strong>Liability evidence</strong></div>
+                  <div class="meta-card"><span>Key date</span><strong>18 Oct 2026</strong></div>
+                </div>
+                <div class="actions-label">Next actions</div>
+                <div class="task"><span class="box"></span><span>Review expert report and identify follow-up questions</span></div>
+                <div class="task"><span class="box"></span><span>Prepare client update following counsel review</span></div>
+                <div class="task"><span class="box"></span><span>Confirm limitation position and next procedural date</span></div>
+                <div class="task"><span class="box"></span><span>Upload latest medical records bundle</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="eyebrow">See it early. Evolve it together.</div>
+          <h2>See it for yourself.</h2>
+          <div class="see-copy">
+            <p>Help us understand one of your practice areas through a short discovery and, within a few hours, we'll have it up and running in a CMS, ready for you to try.</p>
+            <p>Still deciding? We can get the same practice area working in different CMSs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ask-band" aria-label="The question">
+      <div class="wrap">
+        <p>How much better would it feel to make the decision based on <span class="mark">something real?</span></p>
+      </div>
+    </section>
+
+    <section class="approach" id="approach">
+      <div class="wrap">
+        <div class="approach-head">
+          <div>
+            <div class="eyebrow">A practical approach</div>
+            <h2>Move quickly, with the right people beside you.</h2>
+          </div>
+          <div class="approach-intro">
+            <p>Our goal is to unlock the benefits of your CMS investment as quickly as possible.</p>
+            <p>We spend time with your teams to understand how the work really happens, then use our own technology to turn that understanding into something you can see and touch, fast.</p>
+          </div>
+        </div>
+        <ol class="ledger" style="list-style:none;padding:0;margin-bottom:0">
+          <li class="ledger-row">
+            <span class="ledger-no" aria-hidden="true">1</span>
+            <h3>Show us</h3>
+            <p>Your lawyers, case handlers and technical teams take us into the detail. We listen, ask questions and understand what they actually need.</p>
+          </li>
+          <li class="ledger-row">
+            <span class="ledger-no" aria-hidden="true">2</span>
+            <h3>See it working</h3>
+            <p>We take that understanding and, within hours, turn it into something your teams can use. They get hands-on, try it for themselves and see what works while the conversation is still fresh.</p>
+          </li>
+          <li class="ledger-row">
+            <span class="ledger-no" aria-hidden="true">3</span>
+            <h3>Evolve it together</h3>
+            <p>Your teams tell us what works, what doesn't and what needs to change. We make those changes quickly, show them again and repeat.</p>
+          </li>
+        </ol>
+        <div class="payoff">
+          <h3>By the time you go live, your teams will already know how to use the CMS in their everyday work.</h3>
+          <div class="payoff-copy">
+            <p>Because your people are using and evolving the system from the start, they're learning how it works in their own context. They're thinking about how they'll use it on their own cases, seeing where processes could work better and getting comfortable with new ways of working.</p>
+            <p>Testing, training, process improvement and change happen naturally as part of the implementation, not as separate activities at the end.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="experience" id="experience">
+      <div class="wrap">
+        <div class="eyebrow">Real people. Real experience.</div>
+        <h2>We know law, we know CMS and we've learned some tough lessons along the way.</h2>
+        <div class="exp-grid">
+          <div class="exp-copy">
+            <p>Our team includes former case handlers, paralegals, IT Directors and developers with years of experience delivering, supporting and living with CMS implementations.</p>
+            <p>We've made decisions we'd make differently now, seen small changes create big headaches later, and had to put things right when projects haven't gone to plan.</p>
+            <p><strong>That experience shapes how we work today: a streamlined approach where we'll tell you if we think something's a bad idea, course-correct when something starts heading in the wrong direction, and when things get tough, we'll be right there with you every step of the way.</strong></p>
+          </div>
+          <ul class="exp-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 20h18M5 20V9l7-5 7 5v11M9 20v-6h6v6"/></svg>Extensive experience working within law firms</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M8.2 6h7.6M6 8.2v7.6M18 8.2v7.6M8.2 18h7.6"/></svg>Delivered and supported CMSs</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v5h-5"/></svg>Put projects right when things went wrong</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="contact">
+      <div class="wrap">
+        <h2>Still wondering if it will work?</h2>
+        <div class="cta-row">
+          <p>You don't need to take our word for it.<strong>We'll show you.</strong></p>
+          <a class="button" href="mailto:neil@crlegal.co.uk">See it working <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <img class="footer-brand" src="../assets/logo-white.svg" alt="Clear Rock Legal" />
+      <div class="footer-small">Homepage concept · September 2026</div>
+    </div>
+  </footer>
+  <script src="shared.js"></script>
+</body>
+</html>
